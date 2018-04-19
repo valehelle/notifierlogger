@@ -1,0 +1,10 @@
+<%= form_with scope: :project, url: project_index_path , local: true do |form| %>
+    <p>
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+    </p>
+   
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
