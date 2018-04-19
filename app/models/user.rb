@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
          
   has_many :projects
-  has_many :gitchanges, class_name: "Change"
+  has_many :releaselogs
 end
