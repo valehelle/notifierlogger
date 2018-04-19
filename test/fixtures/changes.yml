@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  released_date: 2018-04-19 05:11:35
+  content: MyString
+  notify: MyString
+  user: one
+  project: one
+
+two:
+  released_date: 2018-04-19 05:11:35
+  content: MyString
+  notify: MyString
+  user: two
+  project: two
