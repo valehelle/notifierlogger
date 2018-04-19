@@ -13,8 +13,8 @@ class ProjectController < ApplicationController
     
     def create
         @project = current_user.projects.new(project_params)
-        @project.webhook = 'sdlfjksdaf'
-        @project.secret = 'sdfsdfdsf'
+        @project.webhook = generate_webhook
+        @project.secret = SecureRandom.hex(13)
         @project.save
         redirect_to @project
     end
@@ -23,4 +23,10 @@ class ProjectController < ApplicationController
     def project_params
         params.require(:project).permit(:name)
     end
+    def generate_webhook
+        loop do
+          webhook = SecureRandom.hex(13)
+          break webhook unless Project.where(webhook: webhook).exists?
+        end
+      end
 end
