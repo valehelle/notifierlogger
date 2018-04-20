@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_19_073921) do
+ActiveRecord::Schema.define(version: 2018_04_20_070751) do
 
 # Could not dump table "changes" because of following StandardError
 #   Unknown type '' for column 'security'
@@ -26,15 +26,16 @@ ActiveRecord::Schema.define(version: 2018_04_19_073921) do
   end
 
   create_table "releaselogs", force: :cascade do |t|
-    t.integer "user_id"
     t.integer "project_id"
-    t.datetime "release_date"
+    t.integer "user_id"
+    t.date "release_date"
+    t.string "modify"
     t.string "added"
-    t.string "changed"
     t.string "deprecated"
     t.string "removed"
     t.string "fixed"
     t.string "security"
+    t.string "notify"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_releaselogs_on_project_id"

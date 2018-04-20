@@ -1,23 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user: one
   project: one
-  release_date: 2018-04-19 07:39:21
+  user: one
+  release_date: 2018-04-20
+  modify: MyString
   added: MyString
-  changed: MyString
   deprecated: MyString
   removed: MyString
   fixed: MyString
   security: MyString
+  notify: MyString
 
 two:
-  user: two
   project: two
-  release_date: 2018-04-19 07:39:21
+  user: two
+  release_date: 2018-04-20
+  modify: MyString
   added: MyString
-  changed: MyString
   deprecated: MyString
   removed: MyString
   fixed: MyString
   security: MyString
+  notify: MyString
