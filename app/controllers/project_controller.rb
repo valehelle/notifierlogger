@@ -9,6 +9,7 @@ class ProjectController < ApplicationController
     
     def show
         @project = Project.find(params[:id])
+        @releaselogs = @project.releaselogs
     end
     
     def create

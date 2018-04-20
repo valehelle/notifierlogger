@@ -2,3 +2,13 @@ Project<br/>
 <%= @project.name %> <br/>
 <%= @project.secret %> <br/>
 <%= @project.webhook %> <br/>
+<% @releaselogs.each do | log | %>
+    <h3>Changed</h3>
+    <%= markdown(log.modify) %>
+    <h3>Fixed</h3>
+    <%= markdown(log.fixed) %>
+    <h3>Added</h3>
+    <%= markdown(log.added) %>
+    <h3>Deprecated</h3>
+    <%= markdown(log.deprecated) %>
+<% end %>
