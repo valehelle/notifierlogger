@@ -71,7 +71,26 @@ class ChangelogController < ApplicationController
         render status: :ok
     end
 
+
+    def edit
+        @releaselog = current_user.releaselogs.find(params[:id])
+    end
+
+    def update
+        @releaselog = current_user.releaselogs.find(params[:id])
+        if @releaselog.update_attributes(log_params)
+            # Handle a successful update.
+          else
+            render 'edit'
+          end
+    end
+
     private
+    def log_params
+    
+        params.require(:releaselog).permit(:modify)
+
+    end
 
     def save_changelog(change,added,deprecated,removed,fixed,security)
         project = Project.find_by(webhook: params[:id])
@@ -106,9 +125,4 @@ class ChangelogController < ApplicationController
         return Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
     end
 
-    def edit
-    end
-
-    def update
-    end
 end
