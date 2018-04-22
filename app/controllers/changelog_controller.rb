@@ -105,4 +105,10 @@ class ChangelogController < ApplicationController
         signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), 'secret', payload_body)
         return Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
     end
+
+    def edit
+    end
+
+    def update
+    end
 end

@@ -9,7 +9,7 @@ class ProjectController < ApplicationController
     
     def show
         @project = Project.find(params[:id])
-        @releaselogs = @project.releaselogs
+        @releaselogs = @project.releaselogs.order(:created_at).reverse
     end
     
     def create
