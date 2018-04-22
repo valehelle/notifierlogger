@@ -16,6 +16,7 @@ class ChangelogController < ApplicationController
                 removed = ''
                 fixed = ''
                 security = ''
+                notify = ''
                 body.each_line do |line|
                     header = false
 
@@ -39,6 +40,9 @@ class ChangelogController < ApplicationController
                     elsif strip_line == '###SECURITY'
                         type = 'S'
                         header = true
+                    elsif strip_line == '###NOTIFY'
+                        type = 'N'
+                        header = true
                     end
                     
                     if !header
@@ -54,6 +58,8 @@ class ChangelogController < ApplicationController
                             fixed = fixed + line
                         elsif type == 'S'
                             security = security + line
+                        elsif type == 'N'
+                            notify = notify + line
                         end
                     end
                 end
@@ -69,15 +75,30 @@ class ChangelogController < ApplicationController
 
     def save_changelog(change,added,deprecated,removed,fixed,security)
         project = Project.find_by(webhook: params[:id])
-        releaselog = project.releaselogs.new
-        releaselog.modify = change
-        releaselog.added = added
-        releaselog.deprecated = deprecated
-        releaselog.removed = removed
-        releaselog.fixed = fixed
-        releaselog.security = security
-        releaselog.user = project.user
-        releaselog.save!
+        if project.releaselogs.exists?(is_released: false)
+            releaselog = project.releaselogs.find_by(is_released: false)
+            releaselog.modify = releaselog.modify + change
+            releaselog.added = releaselog.added + added
+            releaselog.deprecated = releaselog.deprecated + deprecated
+            releaselog.removed = releaselog.removed + removed
+            releaselog.fixed = releaselog.fixed + fixed
+            releaselog.security = releaselog.security + security
+            releaselog.user = project.user
+            releaselog.save!
+        else
+            releaselog = project.releaselogs.new
+            releaselog.release_version = 'Unreleased'
+            releaselog.is_released = false
+            releaselog.modify = change
+            releaselog.added = added
+            releaselog.deprecated = deprecated
+            releaselog.removed = removed
+            releaselog.fixed = fixed
+            releaselog.security = security
+            releaselog.user = project.user
+            releaselog.save!
+        end
+
     end
 
     def verify_signature(payload_body)

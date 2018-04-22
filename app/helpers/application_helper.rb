@@ -1,3 +1,5 @@
+require 'redcarpet'
+require 'redcarpet/render_strip'
 module ApplicationHelper
     def markdown(text)
         options = {
