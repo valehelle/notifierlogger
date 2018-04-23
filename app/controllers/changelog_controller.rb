@@ -79,16 +79,23 @@ class ChangelogController < ApplicationController
     def update
         @releaselog = current_user.releaselogs.find(params[:id])
         if @releaselog.update_attributes(log_params)
+            if @releaselog.release_version != 'Unreleased' && @releaselog.is_released == false
+                @releaselog.is_released = true
+                @releaselog.save!
+                #notify people
+
+            end
             # Handle a successful update.
           else
             render 'edit'
-          end
+        end
     end
+
 
     private
     def log_params
     
-        params.require(:releaselog).permit(:modify)
+        params.require(:releaselog).permit(:modify, :added, :fixed, :deprecated, :removed, :security, :notify, :release_version)
 
     end
 

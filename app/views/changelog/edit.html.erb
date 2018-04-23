@@ -3,7 +3,28 @@
   
     <%= f.label :modify %>
     <%= f.text_area :modify, class: 'form-control' %>
+    <%= f.text_area :is_released, class: 'form-control' %>
+    <br/>
+    <%= f.label :added %>
+    <%= f.text_area :added, class: 'form-control' %>
+    <br/>
+    <%= f.label :fixed %>
+    <%= f.text_area :fixed, class: 'form-control' %>
+    <br/>
+    <%= f.label :deprecated %>
+    <%= f.text_area :deprecated, class: 'form-control' %>
+    <br/>
+    <%= f.label :removed %>
+    <%= f.text_area :removed, class: 'form-control' %>
+    <br/>
+    <%= f.label :security %>
+    <%= f.text_area :security, class: 'form-control' %>
+    <br/>
+    <%= f.label :notify %>
+    <%= f.text_area :notify, class: 'form-control' %>
+    <%= f.label :release_version %>
+    <%= f.text_field :release_version, class: 'form-control' %>
   
-    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+    <%= f.submit 'submit', class: "btn btn-primary" %>
   <% end %>
   
