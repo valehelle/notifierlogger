@@ -19,6 +19,9 @@ class ProjectController < ApplicationController
         @project.save
         redirect_to @project
     end
+    def settings
+        @project = current_user.projects.find(params[:id])
+    end
 
     private
     def project_params
