@@ -15,7 +15,7 @@
   <%= f.label :added %>
   <%= f.text_area :added, class: 'form-control', rows: "5", oninput: 'updatePreview()' %>
   <br/>
-  <%= f.label :modify %>
+  <%= f.label "Changed" %>
   <%= f.text_area :modify, class: 'form-control', rows: "5", oninput: 'updatePreview()' %>
   <br/>
   <%= f.label :deprecated %>
@@ -52,7 +52,7 @@
       changelog = changelog + document.getElementById('releaselog_fixed').value;
       changelog = changelog + "\n### Added\n";
       changelog = changelog + document.getElementById('releaselog_added').value;
-      changelog = changelog + "\n### Modify\n";
+      changelog = changelog + "\n### Changed\n";
       changelog = changelog + document.getElementById('releaselog_modify').value;
       changelog = changelog + "\n### Deprecated\n";
       changelog = changelog + document.getElementById('releaselog_deprecated').value;

@@ -18,14 +18,16 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
       <%= link_to "Edit", changelog_edit_path(log) %>
     <% end %> 
     </h4> 
-    <h5>Changed</h5>
-    <%= markdown(log.modify) %>
     <h5>Fixed</h5>
     <%= markdown(log.fixed) %>
     <h5>Added</h5>
     <%= markdown(log.added) %>
+    <h5>Changed</h5>
+    <%= markdown(log.modify) %>
     <h5>Deprecated</h5>
     <%= markdown(log.deprecated) %>
+    <h5>Removed</h5>
+    <%= markdown(log.added) %>
     <br/>
     <br/>
 <% end %>
