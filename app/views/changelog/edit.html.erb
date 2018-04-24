@@ -1,30 +1,67 @@
 
+<div class="container-fluid">
+<div class = "row ">
+
+<div class = "col col-md-6">
+<h4>Update</h4>
+<br/>
 <%= form_for(@releaselog, url: changelog_update_path) do |f| %>
-  
-    <%= f.label :modify %>
-    <%= f.text_area :modify, class: 'form-control' %>
-    <%= f.text_area :is_released, class: 'form-control' %>
-    <br/>
-    <%= f.label :added %>
-    <%= f.text_area :added, class: 'form-control' %>
-    <br/>
-    <%= f.label :fixed %>
-    <%= f.text_area :fixed, class: 'form-control' %>
-    <br/>
-    <%= f.label :deprecated %>
-    <%= f.text_area :deprecated, class: 'form-control' %>
-    <br/>
-    <%= f.label :removed %>
-    <%= f.text_area :removed, class: 'form-control' %>
-    <br/>
-    <%= f.label :security %>
-    <%= f.text_area :security, class: 'form-control' %>
-    <br/>
-    <%= f.label :notify %>
-    <%= f.text_area :notify, class: 'form-control' %>
-    <%= f.label :release_version %>
-    <%= f.text_field :release_version, class: 'form-control' %>
-  
-    <%= f.submit 'submit', class: "btn btn-primary" %>
-  <% end %>
-  
+  <%= f.label :release_version %>
+  <%= f.text_field :release_version, class: 'form-control', oninput: 'updatePreview()' %>
+  <br/>
+  <%= f.label :fixed %>
+  <%= f.text_area :fixed, class: 'form-control', rows: "5", oninput: 'updatePreview()' %>
+  <br/>
+  <%= f.label :added %>
+  <%= f.text_area :added, class: 'form-control', rows: "5", oninput: 'updatePreview()' %>
+  <br/>
+  <%= f.label :modify %>
+  <%= f.text_area :modify, class: 'form-control', rows: "5", oninput: 'updatePreview()' %>
+  <br/>
+  <%= f.label :deprecated %>
+  <%= f.text_area :deprecated, class: 'form-control', rows: "5", oninput: 'updatePreview()' %>
+  <br/>
+  <%= f.label :removed %>
+  <%= f.text_area :removed, class: 'form-control', rows: "5", oninput: 'updatePreview()' %>
+  <br/>
+  <%= f.label :security %>
+  <%= f.text_area :security, class: 'form-control', rows: "5", oninput: 'updatePreview()' %>
+  <br/>
+  <%= f.label :notify %>
+  <%= f.text_area :notify, class: 'form-control', rows: "5" %>
+  <br/>
+  <%= f.submit 'Update', class: "btn btn-primary float-right" %>
+  <br/>
+  <br/>
+<% end %>
+</div>
+<div class = "col col-md-6">
+<h4>Preview</h4>
+<br/>
+<div id = "changelog_preview">
+</div>
+</div>
+</div>
+</div>
+<script src = "https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js"></script>
+<script>
+    updatePreview();
+    function updatePreview(){
+      var changelog = "# " + document.getElementById('releaselog_release_version').value;
+      changelog = changelog + "\n### Fixed\n";
+      changelog = changelog + document.getElementById('releaselog_fixed').value;
+      changelog = changelog + "\n### Added\n";
+      changelog = changelog + document.getElementById('releaselog_added').value;
+      changelog = changelog + "\n### Modify\n";
+      changelog = changelog + document.getElementById('releaselog_modify').value;
+      changelog = changelog + "\n### Deprecated\n";
+      changelog = changelog + document.getElementById('releaselog_deprecated').value;
+      changelog = changelog + "\n### Removed\n";
+      changelog = changelog + document.getElementById('releaselog_removed').value;
+      changelog = changelog + "\n### Security\n";
+      changelog = changelog + document.getElementById('releaselog_security').value;
+      var converter = new showdown.Converter(),
+      html      = converter.makeHtml(changelog);
+      document.getElementById("changelog_preview").innerHTML = html;
+    }
+</script>
