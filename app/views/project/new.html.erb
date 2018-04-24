@@ -1,10 +1,21 @@
+
+<div class="container-fluid">
+<div class = "row justify-content-md-center">
+<div class = "col col-md-6">
+<h4>Create project</h4>
+<br/>
 <%= form_with scope: :project, url: project_index_path , local: true do |form| %>
-    <p>
+  <div class="form-group">  
+  <p>
       <%= form.label :name %><br>
-      <%= form.text_field :name %>
+      <%= form.text_field :name , :class => "form-control"%>
     </p>
    
     <p>
-      <%= form.submit %>
+      <%= form.submit "Create", :class => "btn btn-primary float-right" %>
     </p>
-  <% end %>
+  </div>
+<% end %>
+</div>
+</div>
+</div>

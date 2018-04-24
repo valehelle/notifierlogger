@@ -1,14 +1,43 @@
-Project<br/>
-<%= @project.name %> <br/>
-<%= @project.secret %> <br/>
-<%= @project.webhook %> <br/>
-<% @releaselogs.each do | log | %>
-    <h3>Changed</h3>
-    <%= markdown(log.modify) %>
-    <h3>Fixed</h3>
-    <%= markdown(log.fixed) %>
-    <h3>Added</h3>
-    <%= markdown(log.added) %>
-    <h3>Deprecated</h3>
-    <%= markdown(log.deprecated) %>
+<div class="container-fluid">
+<div class = "row justify-content-md-center">
+<div class = "col col-md-6">
+<h4> <%= @project.name %> </h4>
+<br/>
+<div class="card">
+  <div class="card-header">
+    Config
+    </div>
+  <div class="card-body">
+  <h6>Webhook URL : <%= @project.webhook %> </h6>
+  <h6>Secret : <%= @project.secret %> </h6>
+  </div>
+</div>
+</br>
+</br>
+<h3>Changelog</h3>
+<h6>All notable changes to this project will be documented in this file.</h6>
+<h6>The format is based on  <a href="http://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>
+and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</h6>
+<br/>
+<% if @releaselogs.first.release_version != "Unreleased" %>
+    <h4>Unreleased<h4/>
+    -
+    <br/>
+    <br/>
 <% end %>
+<% @releaselogs.each do | log | %>
+    <h4><%= log.release_version %> - <%= log.release_date %></h4>
+    <h5>Changed</h5>
+    <%= markdown(log.modify) %>
+    <h5>Fixed</h5>
+    <%= markdown(log.fixed) %>
+    <h5>Added</h5>
+    <%= markdown(log.added) %>
+    <h5>Deprecated</h5>
+    <%= markdown(log.deprecated) %>
+    <br/>
+    <br/>
+<% end %>
+</div>
+</div>
+</div>

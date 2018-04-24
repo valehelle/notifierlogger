@@ -17,6 +17,9 @@ module ProjectHelper
         renderer = Redcarpet::Render::HTML.new(options)
         markdown = Redcarpet::Markdown.new(renderer, extensions)
     
+        if text.blank?
+          text = "-  "
+        end
         markdown.render(text).html_safe
       end
 end
