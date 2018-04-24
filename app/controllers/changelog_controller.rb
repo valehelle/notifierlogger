@@ -98,6 +98,7 @@ class ChangelogController < ApplicationController
 
             end
             # Handle a successful update.
+            redirect_to project_path(@releaselog.project)
           else
             render 'edit'
         end
