@@ -19,14 +19,8 @@
 <h6>The format is based on  <a href="http://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>
 and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</h6>
 <br/>
-<% if @releaselogs.first.release_version != "Unreleased" %>
-    <h4>Unreleased<h4/>
-    -
-    <br/>
-    <br/>
-<% end %>
 <% @releaselogs.each do | log | %>
-    <h4><%= log.release_version %> - <%= log.release_date %></h4>
+    <h4><%= log.release_version %> - <%= log.release_date %> <%= link_to "Edit", changelog_edit_path(log) %></h4> 
     <h5>Changed</h5>
     <%= markdown(log.modify) %>
     <h5>Fixed</h5>

@@ -82,6 +82,18 @@ class ChangelogController < ApplicationController
             if @releaselog.release_version != 'Unreleased' && @releaselog.is_released == false
                 @releaselog.is_released = true
                 @releaselog.save!
+                project = @releaselog.project
+                new_release = project.releaselogs.new
+                new_release.release_version = 'Unreleased'
+                new_release.is_released = false
+                new_release.modify = ''
+                new_release.added = ''
+                new_release.deprecated = ''
+                new_release.removed = ''
+                new_release.fixed = ''
+                new_release.security = ''
+                new_release.user = current_user
+                releaselog.save!
                 #notify people
 
             end
