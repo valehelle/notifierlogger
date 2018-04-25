@@ -1,6 +1,9 @@
 <div class="container-fluid">
 <div class = "row justify-content-md-center">
 <div class = "col col-md-6">
+<% if user_signed_in? && current_user == @project.user %>
+<h6><%= link_to "Project", project_index_path %> > <%= @project.name %> <h6>
+<% end %> 
 <h4> <%= @project.name %> 
 <% if user_signed_in? && current_user == @project.user %>
 <%= link_to "Settings", project_settings_path(@project) %> 

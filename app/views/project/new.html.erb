@@ -2,6 +2,7 @@
 <div class="container-fluid">
 <div class = "row justify-content-md-center">
 <div class = "col col-md-6">
+<h6><%= link_to "Project", project_index_path %> > Create <h6>
 <h4>Create project</h4>
 <br/>
 <%= form_with scope: :project, url: project_index_path , local: true do |form| %>
@@ -12,7 +13,7 @@
     </p>
    
     <p>
-      <%= form.submit "Create", :class => "btn btn-primary float-right" %>
+      <%= form.submit "Create", :class => "btn btn-primary" %>
     </p>
   </div>
 <% end %>
