@@ -81,6 +81,7 @@ class ChangelogController < ApplicationController
         if @releaselog.update_attributes(log_params)
             if @releaselog.release_version != 'Unreleased' && @releaselog.is_released == false
                 @releaselog.is_released = true
+                @releaselog.release_date = Time.now
                 @releaselog.save!
                 project = @releaselog.project
                 new_release = project.releaselogs.new
@@ -93,7 +94,7 @@ class ChangelogController < ApplicationController
                 new_release.fixed = ''
                 new_release.security = ''
                 new_release.user = current_user
-                releaselog.save!
+                new_release.save!
                 #notify people
 
             end
