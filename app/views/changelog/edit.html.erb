@@ -1,8 +1,8 @@
 
 <div class="container-fluid">
-<div class = "row ">
+<div class = "row justify-content-md-center">
 
-<div class = "col col-md-6">
+<div class = "col col-md-3">
 <h6><%= link_to "Project", project_index_path %> > <%= link_to @releaselog.project.name, project_path(@releaselog.project) %> > <%= @releaselog.release_version %> <h6>
 <h4>Update</h4>
 <br/>
@@ -36,7 +36,7 @@
   <br/>
 <% end %>
 </div>
-<div class = "col col-md-6">
+<div class = "col col-md-3">
 <h4>Preview</h4>
 <br/>
 <div id = "changelog_preview">

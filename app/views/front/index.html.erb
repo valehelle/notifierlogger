@@ -1,11 +1,46 @@
-<div class="jumbotron">
-  <h1 class="display-3">Hello, world!</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention
-    to featured content or information.</p>
-  <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger
-    container.</p>
+<div class="container-fluid">
+<div class = "row justify-content-md-center">
+<div class = "col col-md-6">
+  <h1 class="display-3">Automate your release workflow.</h1>
+  <br/>
+  <p class="lead">Hello, world!</p>
+  <hr class="my-2">
+  <p>When working on a project as a team, it can be difficult to coordinate project releases.</p>
+  <p>A team leader have to release the project and update the changelog.</p>
+  <p>The team members need to inform stakeholders(ie: CS) when the project is released.</p>
+  <p>By connecting your Git to Notilog, you can <b>automatically</b>: </p>
+    <ul>
+      <li>Generate changelog file based on your team members git merge comment.</li>
+      <li>Notify people once you release the changelog.</li>
+    </ul> 
   <p class="lead">
-    <a class="btn btn-primary" href="#!" role="button">Register</a>
+    <%= link_to "Sign up", new_user_registration_path, :class => "btn btn-primary" %>
   </p>
+  <br/>
+  <br/>
+  <h2>How it works</h2>
+  <br/>
+  <h6>1. When your team member are requesting a merge/pull request, they should follow the format below</h6>
+  <br/>
+  <%= image_tag("merge_comment.png", :alt => "merge comment", :class => "img-thumbnail") %>
+  <br/>
+  <br/>
+  <h6>2. When you merge the request, Notilog will generate a changelog for you to edit.</h6>
+  <br/>
+  <%= image_tag("changelog_unreleased.png", :alt => "merge comment", :class => "img-thumbnail") %>
+  <br/>
+  <br/>
+  <h6>3. Once you are satisfied with the changelog, you can release it by naming the release.</h6>
+  <br/>
+  <%= image_tag("changelog_released.png", :alt => "merge comment", :class => "img-thumbnail") %>
+  <br/>
+  <br/>
+  <h6>4. If your team member wanted to inform someone when the project is release, they can put the email in the notify section, Notilog will email them about the release when you release the changelog.</h6>
+  <br/>
+  <%= image_tag("merge_notify.png", :alt => "merge comment", :class => "img-thumbnail") %>
+  <br/>
+  <br/>
+  <br/>
+  </div>
+</div>
 </div>
