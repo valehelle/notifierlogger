@@ -1,6 +1,6 @@
 class ChangelogController < ApplicationController
     skip_before_action :verify_authenticity_token
-    def webhook
+    def github_webhook
         request.body.rewind
         payload_body = request.body.read
         if verify_signature(payload_body)
