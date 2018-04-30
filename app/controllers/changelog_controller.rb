@@ -1,12 +1,84 @@
 class ChangelogController < ApplicationController
     skip_before_action :verify_authenticity_token
+    def gitlab_webhook
+        
+        request.body.rewind
+        payload_body = request.body.read
+        token = Project.find_by(webhook: params[:id]).secret
+        if verify_signature_gitlab(token)
+            json_data = JSON.parse(request.raw_post)
+            action = json_data['action']
+            merged = json_data['object_attributes']['state']
+            if merged == 'merged'
+                body = json_data['object_attributes']['description']
+                type = ''
+                change = ''
+                added = ''
+                deprecated = ''
+                removed = ''
+                fixed = ''
+                security = ''
+                notify = ''
+                body.each_line do |line|
+                    header = false
+
+                    strip_line = line.gsub(/\s+/, '')
+                    strip_line.upcase!
+                    if strip_line.to_s == "###CHANGED"
+                        type = 'C'
+                        header = true
+                    elsif strip_line == '###ADDED'
+                        type = 'A'
+                        header = true
+                    elsif strip_line == '###DEPRECATED'
+                        type = 'D'
+                        header = true
+                    elsif strip_line == '###REMOVED'
+                        type = 'R'
+                        header = true
+                    elsif strip_line == '###FIXED'
+                        type = 'F'
+                        header = true
+                    elsif strip_line == '###SECURITY'
+                        type = 'S'
+                        header = true
+                    elsif strip_line == '###NOTIFY'
+                        type = 'N'
+                        header = true
+                    end
+                    
+                    if !header
+                        if type == 'C'
+                            change = change + line
+                        elsif type == 'A'
+                            added = added + line
+                        elsif type == 'D'
+                            deprecated = deprecated + line
+                        elsif type == 'R'
+                            removed = removed + line
+                        elsif type == 'F'
+                            fixed = fixed + line
+                        elsif type == 'S'
+                            security = security + line
+                        elsif type == 'N'
+                            notify = notify + line
+                        end
+                    end
+                end
+                save_changelog(change,added,deprecated,removed,fixed,security)
+            end
+            
+            
+        end
+        render status: :ok
+    end
     def github_webhook
         request.body.rewind
         payload_body = request.body.read
-        if verify_signature(payload_body)
+        if verify_signature_github(payload_body)
             json_data = JSON.parse(request.raw_post)
             action = json_data['action']
-            merged = body = json_data['pull_request']['merged']
+            merged = json_data['pull_request']['merged']
             if action == 'closed' && merged
                 body = json_data['pull_request']['body']
                 type = ''
@@ -140,13 +212,21 @@ class ChangelogController < ApplicationController
             releaselog.security = security
             releaselog.user = project.user
             releaselog.save!
+            
         end
 
     end
 
-    def verify_signature(payload_body)
+    def verify_signature_github(payload_body)
         signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), 'secret', payload_body)
         return Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
+    end
+    def verify_signature_gitlab(token)
+        if token == request.headers['X-Gitlab-Token']
+            return true
+        else
+            return false
+        end
     end
 
 end
