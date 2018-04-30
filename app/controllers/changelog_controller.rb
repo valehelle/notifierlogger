@@ -96,7 +96,10 @@ class ChangelogController < ApplicationController
                 new_release.user = current_user
                 new_release.save!
                 #notify people
-
+                notify = @releaselog.notify.split(',')
+                notify.each do |email|
+                    MailMailer.send_notification(email,@releaselog.project.name,@releaselog.release_version).deliver_now
+                end
             end
             # Handle a successful update.
             redirect_to project_path(@releaselog.project)
